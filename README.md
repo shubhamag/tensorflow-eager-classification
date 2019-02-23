@@ -1,26 +1,4 @@
-# Assignment 1: Object Classification with TensorFlow!
-
-- [Visual Learning and Recognition (16-824) Spring 2019](https://sites.google.com/andrew.cmu.edu/16824-spring2019/)
-- Created By: [Tao Chen](https://taochenshh.github.io/), [Rohit Girdhar](http://rohitgirdhar.github.io)
-- TAs: [Rohit Girdhar](http://rohitgirdhar.github.io), [Kenny Marino](http://kennethmarino.weebly.com/), [Senthil Purushwalkam](http://www.cs.cmu.edu/~spurushw/), [Chen-Hsuan Lin](https://chenhsuanlin.bitbucket.io/), [Samantha Powers](https://www.ri.cmu.edu/ri-people/samantha-powers/), [Tao Chen](https://taochenshh.github.io/)
-- Please post questions, if any, on the piazza for HW1.
-- Total points: 100
-
-In this assignment, we will learn to train multi-label image classification models using the [TensorFlow](www.tensorflow.org) (TF) framework. We will classify images from the PASCAL 2007 dataset into the objects present in the image. Your task in this assignment is to fill in the parts of code, as described in this document, perform all experiments, and submit a report with your results and analyses. You are required to use `tf.keras`, which is an official built-in high-level API. You **should** follow the code structure we defined in the steps of this assignment. Feel free to google how to do certain things if you get stuck, but put proper attribution. It is *not* acceptable to google "alexnet for PASCAL classification in tensorflow" and copy-paste that code, as that would probably not follow the code structure we define in the assignment.
-
-In all the following tasks, coding and analysis, please write a short summary of what you tried, what worked (or didn't), and what you learned, in the report. Write the code in the files as specified. 
-
-**Submission Requirements**:
-
-* Please submit your report as well as your code.
-* Please submit a zip file (less than 10 MB) that contains one folder named `code` which contains all your code files and one `report` in pdf format. You should name your report as `<AndrewID>.pdf`. And please zip all your files into a single file named `<AndrewID>.zip`. 
-* In the begining of the report, please include a section which lists all the commands for TAs to run your code.
-* You should also mention any collaborators or other sources used for different parts of the assignment.
-* The submission link for homework 1 is [here](https://goo.gl/forms/vsOQJHjZulsZrCRG2). Please use your andrew email for the submission.
-
 ## Software setup
-
-We will use the following python libraries for the homework:
 
 1. [TensorFlow (**1.12**)](https://www.tensorflow.org/install/pip)
 1. Numpy
