@@ -223,10 +223,14 @@ def main():
     flip_fn = lambda img,lbl,wts: flip(img, lbl,wts)
     crop_fn = lambda img,lbl,wts: crop(img, lbl,wts)
     ccrop_fn = lambda img,lbl,wts : center_crop(img,lbl,wts)
+
+    train_labels = train_labels.astype(np.float32)
+    train_weights = train_weights.astype(np.float32)
     train_dataset = tf.data.Dataset.from_tensor_slices((train_images, train_labels, train_weights))
     flipped_train = train_dataset.map(flip_fn,num_parallel_calls=4)
     train_dataset = train_dataset.concatenate(flipped_train)
     train_dataset = train_dataset.map(crop_fn,num_parallel_calls=4)
+
 
 
     train_dataset = train_dataset.shuffle(10000).batch(args.batch_size)
@@ -287,7 +291,7 @@ def main():
                 print ("\nPretrained model wieghts loaded\n")
 
             ######LETS MIX IT UP !!! ##########
-            mix_flag =0
+            mix_flag =1
             N = int(images.shape[0])
             if(N%2 ==0 and mix_flag):
                 H,W,C = images.shape[1:]
@@ -296,18 +300,23 @@ def main():
                 C = int(C)
                 # pdb.set_trace()
                 mix_images = np.zeros([int(N/2),H,W,C],dtype=np.float32)
-                mix_labels = np.zeros([int(N/2),20],dtype=np.int32)
-                mix_weights = np.zeros([int(N/2),20],dtype=np.int32)
+                mix_labels = np.zeros([int(N/2),20],dtype=np.float32)
+                mix_weights = np.zeros([int(N/2),20],dtype=np.float32)
                 for i in range(int(N/2)):
                     coeff  = np.random.beta(0.2,0.2)
                     mix_images[i] = coeff*images[2*i] + \
-                                    (1-coeff)*images[2*i +1]
-                    mix_labels[i] = coeff * labels[2 * i] + \
-                                    (1 - coeff) * labels[2 * i + 1]
-                    if(coeff > 0.5):
-                        mix_weights[i] = weights[2*i]
-                    else:
-                        mix_weights[i]  = weights[2*i +1]
+                                    (1-coeff)*images[(2*i) +1]
+                    mix_labels[i] = coeff * labels[2*i] + \
+                                    (1 - coeff) * labels[(2*i) + 1]
+
+                    mix_weights[i] = coeff * weights[(2*i)] + \
+                                    (1 - coeff) * weights[(2*i) + 1]
+
+                    # if(coeff > 0.5):
+                    #     mix_weights[i] = weights[2*i]
+                    # else:
+                    #     mix_weights[i]  = weights[2*i +1]
+                pdb.set_trace()
 
                 with tf.GradientTape() as tape:
                     mix_logits = model(mix_images, training=True)

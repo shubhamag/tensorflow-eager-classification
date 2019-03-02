@@ -9,6 +9,7 @@ from tensorflow.contrib import eager as tfe
 from tensorflow.keras import layers
 import time
 import util
+import pdb
 
 
 class SimpleCNN(keras.Model):
@@ -140,6 +141,7 @@ def main():
                                      axis=1,
                                      output_type=tf.int32),
                            labels)
+            # pdb.set_trace()
             if global_step.numpy() % args.log_interval == 0:
                 print('Epoch: {0:d}/{1:d} Iteration:{2:d}  Training Loss:{3:.4f}  '
                       'Training Accuracy:{4:.4f}'.format(ep,
